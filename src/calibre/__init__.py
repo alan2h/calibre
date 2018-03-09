@@ -3,6 +3,8 @@ __license__   = 'GPL v3'
 __copyright__ = '2008, Kovid Goyal <kovid@kovidgoyal.net>'
 __docformat__ = 'restructuredtext en'
 
+print ("Hello, world!")
+
 import sys, os, re, time, random, __builtin__, warnings
 __builtin__.__dict__['dynamic_property'] = lambda func: func(None)
 from math import floor
