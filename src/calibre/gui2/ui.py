@@ -6,6 +6,7 @@ __license__   = 'GPL v3'
 __copyright__ = '2009, Kovid Goyal <kovid@kovidgoyal.net>'
 __docformat__ = 'restructuredtext en'
 
+import time
 
 '''The main GUI'''
 
@@ -19,6 +20,8 @@ import apsw
 from PyQt5.Qt import (
     Qt, QTimer, QAction, QMenu, QIcon, pyqtSignal, QUrl, QFont, QDialog,
     QApplication, QSystemTrayIcon)
+
+from PyQt5 import QtWidgets
 
 from calibre import prints, force_unicode, detect_ncpus
 from calibre.constants import (
@@ -215,6 +218,13 @@ class Main(MainWindow, MainWindowMixin, DeviceMixin, EmailMixin,  # {{{
             stmap[st.name] = st
 
     def initialize(self, library_path, db, listener, actions, show_gui=True):
+        from calibre.gui2 import Application
+        app = Application([])
+        app.load_builtin_fonts()
+        w = QtWidgets.QWidget()
+        w.show()
+        app.exec_()
+        #time.sleep(1000)
         opts = self.opts
         self.preferences_action, self.quit_action = actions
         self.library_path = library_path

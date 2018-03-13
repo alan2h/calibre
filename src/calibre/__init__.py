@@ -29,11 +29,11 @@ from calibre.utils.icu import safe_chr
     
 app = QApplication(sys.argv)
 
-w = QWidget()
+'''w = QWidget()
 w.resize(250, 150)
 w.move(300, 300)
 w.setWindowTitle('Simple')
-w.show()
+w.show()'''
 
 '''sys.exit(app.exec_())'''
 

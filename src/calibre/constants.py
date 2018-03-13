@@ -5,10 +5,10 @@
 from future_builtins import map
 import sys, locale, codecs, os, importlib, collections
 
-__appname__   = u'calibre'
+__appname__   = u'Sistema Biblioteca Nacional'
 numeric_version = (3, 18, 0)
 __version__   = u'.'.join(map(unicode, numeric_version))
-__author__    = u"Kovid Goyal <kovid@kovidgoyal.net>"
+__author__    = u"Alan Beck <Beckalan303@gmail.com>"
 
 '''
 Various run time constants.

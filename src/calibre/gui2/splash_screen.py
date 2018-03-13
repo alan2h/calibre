@@ -9,25 +9,29 @@ from PyQt5.Qt import (
     Qt
 )
 
+from PyQt5 import QtWidgets
+
 from calibre.constants import __appname__, numeric_version
 from calibre.utils.monotonic import monotonic
 
 
 class SplashScreen(QSplashScreen):
 
-    TITLE_SIZE = 20  # pt
+    TITLE_SIZE = 10  # pt
     BODY_SIZE = 12  # pt
     FOOTER_SIZE = 9  # pt
     LOGO_SIZE = 96  # px
     WIDTH = 550  # px
 
-    def __init__(self, develop=False):
+    
+
+    def inicio_splash(self, develop="false"):
         self.drawn_once = False
         self.develop = develop
         self.title_font = f = QFont()
         f.setPointSize(self.TITLE_SIZE)
         f.setBold(True)
-        self.title_height = QFontMetrics(f).lineSpacing() + 2
+        self.title_height = QFontMetrics(f).lineSpacing()
         self.body_font = f = QFont()
         f.setPointSize(self.BODY_SIZE)
         self.line_height = QFontMetrics(f).lineSpacing()
@@ -50,7 +54,7 @@ class SplashScreen(QSplashScreen):
         pmap.setDevicePixelRatio(self.dpr)
         pmap.fill(Qt.transparent)
         QSplashScreen.__init__(self, pmap)
-        self.setWindowTitle(__appname__)
+        self.setWindowTitle('Sistema Biblioteca Nacional')
 
     def drawContents(self, painter):
         self.drawn_once = True
@@ -72,16 +76,16 @@ class SplashScreen(QSplashScreen):
 
         # Draw number
         painter.setFont(self.num_font)
-        num_width = painter.boundingRect(0, 0, 0, 0, Qt.AlignCenter | Qt.TextSingleLine, self.num_ch).width() + 12
+        num_width = painter.boundingRect(0, 0, 0, 0, Qt.AlignCenter | Qt.TextSingleLine, '2018').width() + 12
         num_x = width - num_width
         painter.setPen(QPen(QColor('#d6b865')))
-        painter.drawText(num_x, y, num_width, height, Qt.AlignCenter | Qt.TextSingleLine, self.num_ch)
+        painter.drawText(num_x, y, num_width, height, Qt.AlignCenter | Qt.TextSingleLine, '2018')
 
         # Draw title
-        x = pw + 10
+        x = pw + 20
         width -= num_width + 5 + x
         painter.setFont(self.title_font)
-        painter.drawText(x, y, width, self.title_height, Qt.AlignLeft | Qt.AlignVCenter | Qt.TextSingleLine, "CALIBRE")
+        painter.drawText(x, y, width, self.title_height, Qt.AlignLeft | Qt.AlignVCenter | Qt.TextSingleLine, "Alan Beck - Federico Princich ")
 
         # Draw starting up message
         y += self.title_height + 5
@@ -116,6 +120,16 @@ class SplashScreen(QSplashScreen):
             return QSplashScreen.keyPressEvent(self, ev)
         ev.accept()
         QApplication.instance().quit()
+
+
+    def __init__(self, develop=False):
+        #from calibre.gui2 import Application
+        #app = Application([])
+        #app = QtWidgets.QApplication(sys.argv)
+        #w = QtWidgets.QtWidget()
+        #w.show()
+        #app.exec_()
+        self.inicio_splash()
 
 
 def main():

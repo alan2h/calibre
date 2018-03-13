@@ -9,9 +9,11 @@ import sys
 import time
 import traceback
 from functools import partial
+import time
 
 import apsw
 from PyQt5.Qt import QCoreApplication, QIcon, QObject, QTimer
+
 
 from calibre import force_unicode, plugins, prints
 from calibre.constants import (
@@ -229,19 +231,25 @@ class GuiRunner(QObject):
 
     def start_gui(self, db):
         from calibre.gui2.ui import Main
+        from calibre.gui2 import Application
         self.timed_print('Constructing main UI...')
         main = self.main = Main(self.opts, gui_debug=self.gui_debug)
         if self.splash_screen is not None:
             self.splash_screen.show_message(_('Initializing user interface...'))
         try:
+           
             with gprefs:  # Only write gui.json after initialization is complete
+                
                 main.initialize(self.library_path, db, self.listener, self.actions)
+                
+            print('aca mate todo')
         finally:
             self.timed_print('main UI initialized...')
             if self.splash_screen is not None:
                 self.timed_print('Hiding splash screen')
                 self.splash_screen.finish(main)
                 self.timed_print('splash screen hidden')
+                
             self.splash_screen = None
         self.timed_print('Started up in %.2f seconds'%(monotonic() - self.startup_time), 'with', len(db.data), 'books')
         add_filesystem_book = partial(main.iactions['Add Books'].add_filesystem_book, allow_device=False)
@@ -352,12 +360,13 @@ class GuiRunner(QObject):
         self.splash_screen = None
 
     def initialize(self, *args):
+        
         if gprefs['show_splash_screen'] and not self.opts.start_in_tray:
             self.show_splash_screen()
         self.library_path = get_library_path(self)
         if not self.library_path:
             self.initialization_failed()
-
+        
         self.initialize_db()
 
 
